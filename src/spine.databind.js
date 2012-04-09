@@ -77,11 +77,25 @@ var DataBind = {
     Binders: {}
 };
 
-DataBind.Binders.Options = Spine.Controller.create({
-    init: function() {
-        this.item.bind("update", this.proxy(this.update));
+DataBind.Base = Spine.Controller.sub({
+    init: function(args) {
         this.update();
+        this.item.bind("update", this.proxy(this.updateItem));
+    },
 
+    update: function() {
+        throw 'Not Implemented Exception';
+    },
+
+    updateItem: function(item) {
+        this.item = item;
+        this.update();
+    }
+});
+
+DataBind.Binders.Options = DataBind.Base.sub({
+    init: function() {
+        this.constructor.__super__.init.apply(this, arguments);
         if (typeof this.attributes["selectedOptions"] !== "undefined") {
             this.el.bind("change", this.proxy(this.change));
         }
@@ -129,17 +143,16 @@ DataBind.Binders.Options = Spine.Controller.create({
 });
 
 
-DataBind.Binders.Update = Spine.Controller.create({
+DataBind.Binders.Update = DataBind.Base.sub({
     events: {
         "change": "change"
     },
 
     init: function(atts) {
-        this.item.bind("update", this.proxy(this.update));
+        this.constructor.__super__.init.apply(this, arguments);
         if (this.attributes["valueUpdate"] === '"afterkeydown"') {
             this.el.bind("keyup", this.proxy(this.change));
         }
-        this.update();
     },
 
     change: function() {
@@ -152,12 +165,12 @@ DataBind.Binders.Update = Spine.Controller.create({
             default:
                 this.item.updateAttribute(this.attributes["value"],this.el.text());
                 break;
+            console.log(this.item);
         }
     },
 
     update: function() {
         var value;
-
         switch(this.el[0].tagName) {
             case "INPUT":
             case "TEXTAREA":
@@ -184,12 +197,7 @@ DataBind.Binders.Update = Spine.Controller.create({
     keys: [ "text", "value", "valueUpdate" ]
 });
 
-DataBind.Binders.Enable = Spine.Controller.create({
-    init: function() {
-        this.update();
-        this.item.bind("update", this.proxy(this.update));
-    },
-
+DataBind.Binders.Enable = DataBind.Base.sub({
     update: function() {
         var result = DataBind.eval(this.item, this.attributes["enable"]);
 
@@ -205,12 +213,13 @@ DataBind.Binders.Enable = Spine.Controller.create({
 
 DataBind.Binders.Submit = Spine.Controller.create({
    init: function() {
-        this.el.submit(this.proxy(this.submit));
+       //this.constructor.__super__.init.apply(this, arguments);
+       this.el.submit(this.proxy(this.submit));
    },
 
    submit: function(e) {
-        e.preventDefault();
-        DataBind.eval(this.item, this.attributes["submit"]);
+       e.preventDefault();
+       DataBind.eval(this.item, this.attributes["submit"]);
    }
 }, {
     keys: [ "submit" ]
@@ -228,12 +237,7 @@ DataBind.Binders.Click = Spine.Controller.create({
     keys: [ "click" ]
 });
 
-DataBind.Binders.Visible = Spine.Controller.create({
-    init: function() {
-        this.update();
-        this.item.bind("update", this.proxy(this.update));
-    },
-
+DataBind.Binders.Visible = DataBind.Base.sub({
     update: function() {
         var result = DataBind.eval(this.item, this.attributes["visible"]);
 
@@ -247,7 +251,7 @@ DataBind.Binders.Visible = Spine.Controller.create({
     keys: [ "visible" ]
 });
 
-DataBind.Binders.Checked = Spine.Controller.create({
+DataBind.Binders.Checked = DataBind.Base.sub({
     events: {
         "change": "change"    
     },
@@ -255,9 +259,8 @@ DataBind.Binders.Checked = Spine.Controller.create({
     type: null,
 
     init: function() {
+        this.constructor.__super__.init.apply(this, arguments);
         this.type = this.el.attr("type");
-        this.update();
-        this.item.bind("update", this.proxy(this.update));
     },
 
     change: function() {
