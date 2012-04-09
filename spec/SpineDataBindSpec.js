@@ -4,7 +4,7 @@ describe("Spine.DataBind", function() {
 	beforeEach(function() {
 		PersonCollection = Spine.Model.setup("Person", [ 
 			"firstName", 
-			"lastName", 
+			"lastName",
 			"phoneNumbers", 
 			"phoneNumbersSelected",
 			"person",
@@ -225,35 +225,33 @@ describe("Spine.DataBind", function() {
 
 		beforeEach(function() {
 			PersonCollection.include({
-				currentNumber: "",
-
+                currentNumber: '',
 				addNumber: function() {
-					this.phoneNumbers.push(this.currentNumber);	
+					this.phoneNumbers.push(this.currentNumber);
 				}
 			});
 
 			setFixtures([
 				"<form data-bind='submit: addNumber'>",
-					"<input type='text' data-bind='value: currentNumber, valueUpdate: \"afterkeydown\"'/>",
+					"<input type='text' id='currentNumber' data-bind='value: currentNumber'/>",
 					"<input type='submit' id='submit'/>",
 				"</form>"
 			].join(""));
 
-			Person = PersonCollection.create({ 
-				firstName: "Nathan", 
+			Person = PersonCollection.create({
+				firstName: "Nathan",
 				lastName: "Palmer",
 				phoneNumbers: []
 			});
 		});
 
 		it("should capture submit event", function() {
-			Person.currentNumber = "555-555-9090";
-			Person.save();
-
+            var number = '555-555-9090';
+			$('#currentNumber').val(number).trigger('change');
 			$('#submit').click();
 
 			expect(Person.phoneNumbers.length).toBe(1);
-			expect(Person.phoneNumbers[0]).toBe("555-555-9090");
+			expect(Person.phoneNumbers[0]).toBe(number);
 		});
 	});
 
@@ -262,7 +260,7 @@ describe("Spine.DataBind", function() {
 
 		beforeEach(function() {
 			setFixtures([
-				"<form data-bind='submit: addNumber'>",
+				"<form>",
 					"<input type='checkbox' data-bind='checked: person' id='person'/>",
 					"<input type='submit' id='submit'/>",
 				"</form>"
@@ -294,7 +292,7 @@ describe("Spine.DataBind", function() {
 
 		beforeEach(function() {
 			setFixtures([
-				"<form data-bind='submit: addNumber'>",
+				"<form>",
 					"<input type='radio' data-bind='checked: title' value='Mr' id='mr'/>",
 					"<input type='radio' data-bind='checked: title' value='Mrs' id='mrs'/>",
 					"<input type='submit' id='submit'/>",
@@ -306,6 +304,7 @@ describe("Spine.DataBind", function() {
 				lastName: "Palmer",
 				title: "Mr"
 			});
+            Person.save();
 		});
 
 		it("should bind to mr", function() {
