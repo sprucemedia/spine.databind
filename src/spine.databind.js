@@ -620,11 +620,9 @@
     Hash.prototype.keys = ["hash"];
 
     Hash.clean = function() {
-      if (window.location.hash[0] === "#") {
-        return window.location.hash.substr(1);
-      } else {
-        return window.location.hash;
-      }
+      var split, _ref;
+      split = window.location.href.split("#");
+      return (_ref = split[1]) != null ? _ref : "";
     };
 
     Hash.parse = function() {

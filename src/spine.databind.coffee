@@ -351,7 +351,8 @@ class Hash extends Template
 	keys: [ "hash" ]
 
 	@clean: ->
-		return if window.location.hash[0] is "#" then window.location.hash.substr(1) else window.location.hash
+		split = window.location.href.split("#")
+		return split[1] ? ""
 
 	@parse: ->
 		string = Hash.clean()
