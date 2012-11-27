@@ -129,32 +129,52 @@ where `binding-type` is one of:
 	<tr>
 		<th>text</th>
 		<td>`td`, etc.</td>
-		<td>Model value will go in element's `text` property</td>
+		<td>Model value will go in element's <code>text</code>property</td>
 	</tr>
 	<tr>
 		<th>value</th>
 		<td>`input`</td>
-		<td>Model value will be bound to the element's `value` property.</td>
+		<td>Model value will be bound to the element's <code>value</code>property.</td>
 	</tr>
 	<tr>
 		<th>checked</th>
 		<td>`input`</td>
-		<td>The `checked` property of the element will be bound with the model value.</td>
+		<td>The <code>checked</code>property of the element will be bound with the model value.</td>
 	</tr>
 	<tr>
 		<th>options</th>
 		<td>`select`</td>
-		<td>The `option` children of the element will be bound with the model values.</td>
+		<td>The <code>option</code>children of the element will be bound with the model values. This supplies the list of items for the select.</td>
+	</tr>
+	<tr>
+		<th>selectedOptions</th>
+		<td>`select`</td>
+		<td>The selected <code>option</code>value will be bound with the model values.</td>
 	</tr>
 	<tr>
 		<th>enabled</th>
-		<td>`button`, `input`, etc.</td>
-		<td>The `enabled` property of the element will be bound with the model value.</td>
+		<td>`button`, <code>input`, etc.</td>
+		<td>The <code>enabled</code>property of the element will be bound with the model value.</td>
 	</tr>
 	<tr>
 		<th>visible</th>
 		<td>Any</td>
-		<td>The `visible` property of the element will be bound with the model value.</td>
+		<td>The <code>visible</code>property of the element will be bound with the model value.</td>
+	</tr>
+	<tr>
+		<th>attr</th>
+		<td>Any</td>
+		<td>The value-expression is a key-value list of attribute-value pairings, e.g. <code>"attr #someEl": '{ "max": "modelMax", "min": "modelMin" }'</code></td>
+	</tr>
+	<tr>
+		<th>hash</th>
+		<td>none -- use hash key in plnace of selector</td>
+		<td>The hash portion of the URL will be bound with the model value.</td>
+	</tr>
+	<tr>
+		<th>cookie</th>
+		<td>none -- use cookie key in plnace of selector</td>
+		<td>A value stored in a cookie will be bound with the model value.</td>
 	</tr>
 </table>
 
