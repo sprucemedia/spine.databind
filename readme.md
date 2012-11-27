@@ -128,32 +128,32 @@ where `binding-type` is one of:
 	<tr><th>binding type</th><th>element type(s)</th><th></th>
 	<tr>
 		<th>text</th>
-		<td>`td`, etc.</td>
+		<td><code>td</code>, etc.</td>
 		<td>Model value will go in element's <code>text</code>property</td>
 	</tr>
 	<tr>
 		<th>value</th>
-		<td>`input`</td>
+		<td><code>input</code></td>
 		<td>Model value will be bound to the element's <code>value</code>property.</td>
 	</tr>
 	<tr>
 		<th>checked</th>
-		<td>`input`</td>
+		<td><code>input</code></td>
 		<td>The <code>checked</code>property of the element will be bound with the model value.</td>
 	</tr>
 	<tr>
 		<th>options</th>
-		<td>`select`</td>
+		<td><code>select</code></td>
 		<td>The <code>option</code>children of the element will be bound with the model values. This supplies the list of items for the select.</td>
 	</tr>
 	<tr>
 		<th>selectedOptions</th>
-		<td>`select`</td>
+		<td><code>select</code></td>
 		<td>The selected <code>option</code>value will be bound with the model values.</td>
 	</tr>
 	<tr>
 		<th>enabled</th>
-		<td>`button`, <code>input`, etc.</td>
+		<td><code>button</code>, <code>input</code>, etc.</td>
 		<td>The <code>enabled</code>property of the element will be bound with the model value.</td>
 	</tr>
 	<tr>
